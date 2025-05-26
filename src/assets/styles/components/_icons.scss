@@ -123,18 +123,18 @@
     --icon-hover-color: var(--color-primary);
 }
 
-// Icone nei bottoni
+// Icons in buttons
 .btn-icon {
     margin-right: rem-calc(8);
     transition: transform 0.2s ease;
     
-    // Posizione a destra del testo
+    // Position on the right of text
     &--right {
         margin-right: 0;
         margin-left: rem-calc(8);
     }
     
-    // Icona nera (override del colore)
+    // Black icon (color override)
     &--black {
         filter: brightness(0) saturate(100%);
     }
@@ -159,10 +159,15 @@
         }
     }
     
-    // Effetto hover
+    // Hover effects
     .btn:hover & {
         &.btn-icon--right {
             transform: translateX(rem-calc(2));
+        }
+        
+        // Make icons white on button hover
+        &.btn-icon--black {
+            filter: brightness(0) saturate(100%) invert(1);
         }
     }
 }

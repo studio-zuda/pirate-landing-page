@@ -1,14 +1,12 @@
-// Sistema di gestione icone centralizzato
-// Importiamo tutte le icone una volta sola
-
+// Centralized icon management system
 import { iconConfig, socialIcons, getIconForContext, getIconSize } from '@/components/icon-config.js';
 
-// Icone social
+// Social icons
 import mastodon from '@images/icons/mastodon.svg';
 import instagram from '@images/icons/instagram.svg';
 import twitch from '@images/icons/twitch.svg';
 
-// Icone UI (se ne hai)
+// UI icons
 import arrowLeftShort from '@images/icons/arrow-left-short.svg';
 import arrowRightShort from '@images/icons/arrow-right-short.svg';
 import chevronDown from '@images/icons/chevron-down.svg';
@@ -18,14 +16,14 @@ import chevronUp from '@images/icons/chevron-up.svg';
 import close from '@images/icons/close.svg';
 import list from '@images/icons/list.svg';
 
-// Icone SVG inline per UI (più performanti per icone semplici)
+// Inline SVG icons for UI (better performance for simple icons)
 export const iconSVG = {
-  // Freccia per menu dropdown
+  // Dropdown arrow
   chevronDown: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Freccia indietro (chevron a sinistra)
+  // Back arrow (left chevron)
   chevronLeft: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
@@ -35,32 +33,32 @@ export const iconSVG = {
     <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Chiudi
+  // Close icon
   close: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Freccia destra (chevron a destra)
+  // Right arrow (right chevron)
   chevronRight: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Freccia destra completa
+  // Full right arrow
   arrowRight: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M5 12H19M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Freccia sinistra corta per slider (freccia orizzontale)
+  // Short left arrow for slider (horizontal arrow)
   arrowLeftShort: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Freccia destra corta per slider (freccia orizzontale)
+  // Short right arrow for slider (horizontal arrow)
   arrowRightShort: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M5 12H19M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`,
   
-  // Icone social inline
+  // Inline social icons
   mastodon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M22.38 24.39C26.412 23.91 29.92 21.44 30.36 19.184C31.056 15.628 31 10.506 31 10.506C31 3.566 26.428 1.53 26.428 1.53C24.124 0.476 20.166 0.034 16.054 0H15.954C11.84 0.034 7.884 0.476 5.58 1.53C5.58 1.53 1.01 3.564 1.01 10.506L1.006 11.83C0.998004 13.11 0.992004 14.53 1.028 16.012C1.194 22.8 2.28 29.492 8.588 31.152C11.496 31.918 13.994 32.078 16.006 31.968C19.652 31.768 21.7 30.674 21.7 30.674L21.58 28.04C21.58 28.04 18.974 28.86 16.046 28.76C13.146 28.66 10.086 28.448 9.616 24.904C9.57346 24.575 9.55142 24.2437 9.55 23.912C9.55 23.912 12.398 24.604 16.006 24.768C18.212 24.868 20.28 24.64 22.382 24.39H22.38ZM25.606 19.45H22.26V11.29C22.26 9.572 21.532 8.7 20.078 8.7C18.47 8.7 17.664 9.734 17.664 11.782V16.248H14.336V11.78C14.336 9.732 13.53 8.698 11.922 8.698C10.468 8.698 9.74 9.57 9.74 11.29V19.448H6.394V11.044C6.394 9.32667 6.834 7.96267 7.714 6.952C8.626 5.942 9.818 5.424 11.3 5.424C13.012 5.424 14.308 6.08 15.166 7.39L16 8.78L16.834 7.39C17.692 6.08 18.988 5.424 20.702 5.424C22.182 5.424 23.374 5.942 24.284 6.952C25.1667 7.96133 25.6073 9.32533 25.606 11.044V19.45Z" fill="currentColor"/>
   </svg>`,
@@ -82,7 +80,7 @@ export const iconSVG = {
   </svg>`
 };
 
-// Esporta icone come file (per social media, loghi, etc.)
+// Icons as external files (for social media, logos, etc.)
 export const iconFiles = {
   social: {
     mastodon,
@@ -101,7 +99,7 @@ export const iconFiles = {
   }
 };
 
-// Funzione helper per creare icone inline
+// Helper function to create inline icons
 export function createIcon(iconName, options = {}) {
   const {
     className = '',
@@ -113,51 +111,50 @@ export function createIcon(iconName, options = {}) {
   
   const svg = iconSVG[iconName];
   if (!svg) {
-    console.warn(`Icona '${iconName}' non trovata`);
+    console.warn(`Icon '${iconName}' not found`);
     return '';
   }
   
   const iconSize = typeof size === 'string' ? getIconSize(size) : size;
   
-  // Costruisci le classi CSS
+  // Build CSS classes
   let classes = ['icon'];
   
-  // Aggiungi classe di dimensione
+  // Add size class
   if (typeof size === 'string') {
     classes.push(`icon--${size}`);
   }
   
-  // Aggiungi classe di contesto se specificata
+  // Add context class if specified
   if (context && iconConfig.classes[context]) {
     classes.push(iconConfig.classes[context]);
   }
   
-  // Aggiungi tema colore se specificato
+  // Add color theme if specified
   if (theme && iconConfig.themes[theme]) {
     classes.push(iconConfig.themes[theme]);
   }
   
-  // Aggiungi classi personalizzate
+  // Add custom classes
   if (className) {
     classes.push(className);
   }
   
   const classAttr = ` class="${classes.join(' ')}"`;
   const ariaAttr = ariaLabel ? ` aria-label="${ariaLabel}"` : ' aria-hidden="true"';
-  // Rimuoviamo sizeAttr perché ora usiamo le classi CSS
   
   return svg.replace('<svg', `<svg${classAttr}${ariaAttr}`);
 }
 
-// Funzione per creare icone per contesto specifico
+// Function to create icons for specific context
 export function createContextIcon(context, action, options = {}) {
   const iconName = getIconForContext(context, action);
   if (!iconName) {
-    console.warn(`Icona per contesto '${context}.${action}' non trovata`);
+    console.warn(`Icon for context '${context}.${action}' not found`);
     return '';
   }
   
-  // Imposta automaticamente il contesto se non specificato
+  // Set context automatically if not specified
   if (!options.context) {
     options.context = context;
   }
@@ -165,11 +162,11 @@ export function createContextIcon(context, action, options = {}) {
   return createIcon(iconName, options);
 }
 
-// Funzione per icone con file esterno
+// Function for icons with external file
 export function createIconImg(category, iconName, alt = '', className = '') {
   const iconPath = iconFiles[category]?.[iconName];
   if (!iconPath) {
-    console.warn(`Icona '${category}.${iconName}' non trovata`);
+    console.warn(`Icon '${category}.${iconName}' not found`);
     return '';
   }
   
@@ -177,7 +174,7 @@ export function createIconImg(category, iconName, alt = '', className = '') {
   return `<img src="${iconPath}" alt="${alt}"${classAttr} />`;
 }
 
-// Funzione specifica per le icone social (SVG inline)
+// Specific function for social icons (inline SVG)
 export function createSocialIcon(socialName, options = {}) {
   const {
     className = '',
@@ -185,17 +182,17 @@ export function createSocialIcon(socialName, options = {}) {
     ariaLabel = ''
   } = options;
   
-  // Verifica se l'icona social esiste
+  // Check if social icon exists
   if (!iconSVG[socialName]) {
-    console.warn(`Icona social '${socialName}' non trovata`);
+    console.warn(`Social icon '${socialName}' not found`);
     return '';
   }
   
-  // Ottieni la classe brand se disponibile
+  // Get brand class if available
   const brandClass = iconConfig.socialBrands[socialName] || '';
   const socialClasses = `social-icon ${brandClass} ${className}`.trim();
   
-  // Usa createIcon ma forza il contesto social
+  // Use createIcon but force social context
   return createIcon(socialName, {
     className: socialClasses,
     size,

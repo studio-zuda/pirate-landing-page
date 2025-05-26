@@ -157,14 +157,18 @@ body {
         color: var(--btn-primary-label);
         border: 1px solid var(--btn-primary-border);
 
-        &:hover{
+        &:hover {
             background-color: var(--btn-primary-hover);
-            color: var(--btn-primary-label);
+            color: var(--color-white);
+            border-color: var(--color-white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         &:active {
             background-color: var(--btn-primary-active);
             color: var(--btn-primary-label);
+            transform: translateY(0);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         }
 
         &:disabled,

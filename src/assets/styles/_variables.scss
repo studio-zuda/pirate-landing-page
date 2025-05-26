@@ -126,6 +126,7 @@ $container-max-widths: (
 // Primitive colors
 $yellow-500:   #E8B931 !default;
 $yellow-600:   #C49A1A !default;
+$yellow-700:   #A67C00 !default; // Even darker for better contrast
 $yellow-500-alpha: rgba(232, 185, 49, 0.95) !default;
 $red-700:      #B3261E !default;
 $gray-100:     #F5F5F5 !default;
@@ -137,7 +138,7 @@ $transparent:  transparent !default;
 
 // Design tokens
 $color-primary:         $yellow-500 !default;
-$color-primary-hover:   $yellow-600 !default;
+$color-primary-hover:   $black !default;
 $color-primary-alpha:   $yellow-500-alpha !default;
 
 $color-secondary:       $red-700 !default;
