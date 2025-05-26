@@ -66,30 +66,6 @@ npm run preview
     └── utils/
 ```
 
-## 🎯 Features Showcase
-
-- **Hero Section** - Full-screen pirate galleon background
-- **Responsive Navigation** - Collapsible mobile menu with dropdown
-- **Content Sections** - Ships and parrots showcase with grid layout
-- **Events Slider** - Mobile-first carousel for events
-- **Timeline Component** - Interactive step indicator
-- **Social Media Icons** - SVG-based social media links
-
-## 📱 Responsive Design
-
-- **Mobile First** - Designed for mobile devices first
-- **Breakpoints**: 768px (tablet), 1200px (desktop)
-- **Touch Friendly** - Optimized for touch interactions
-- **Performance** - Lazy loading and optimized assets
-
-## 🤝 Contributing
-
-Feel free to fork this project and submit pull requests for any improvements.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ---
 
 Made with ⚡ by [Studio Zuda](https://github.com/studio-zuda)
