@@ -1,0 +1,105 @@
+@use "@styles/mixins" as *;
+@use "@styles/variables" as *;
+
+// ============================================================================
+// TYPOGRAPHY SYSTEM
+// ============================================================================
+
+
+// Headings
+.h1, h1 {
+  font-size: var(--font-size-h1-mobile);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--line-height-tight);
+
+  @include respond-to(md) { 
+    font-size: var(--font-size-h1-desktop);
+  }
+}
+
+.h2, h2 {
+  font-size: var(--font-size-h2-mobile);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--line-height-tight);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-h2-desktop);
+  }
+}
+
+.h3, h3 {
+  font-size: var(--font-size-h3-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+
+  @include respond-to(md) {
+    font-size: var(--font-size-h3-desktop);
+  }
+}
+
+// Body text
+.text, p {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+}
+
+// Text variants
+.text-small {
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+}
+
+.text-large {
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-normal);
+}
+
+.text-subtle {
+    color: var(--text-subtle);
+}
+
+// Text utilities
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+// Font weight utilities
+.font-regular {
+    font-weight: var(--font-weight-regular);
+}
+
+.font-medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.font-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+.font-extra-bold {
+    font-weight: var(--font-weight-extra-bold);
+}
+
+// Line height utilities
+.leading-tight {
+    line-height: var(--line-height-tight);
+}
+
+.leading-normal {
+    line-height: var(--line-height-normal);
+}
+
+.leading-relaxed {
+    line-height: var(--line-height-relaxed);
+}

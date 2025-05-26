@@ -1,0 +1,60 @@
+@use '@/assets/styles/variables' as *;
+
+:root {
+
+    // Colors
+    @each $key, $value in $colors {
+        --color-#{$key}: #{$value};
+    }
+
+    // Body
+    --body-color: var(--color-white);
+    --body-bg: var(--color-white);
+
+    // Text
+    --text-default: var(--color-black);
+    --text-heading: var(--color-black);
+    --text-subtle: var(--color-subtle);
+
+    // Icon
+    --icon-color: var(--color-black);
+
+    // Typography
+    @each $name, $size in $font-sizes {
+        --font-size-#{$name}: #{$size};
+    }
+    
+    @each $name, $height in $line-heights {
+        --line-height-#{$name}: #{$height};
+    }
+    
+    @each $name, $weight in $font-weights {
+        --font-weight-#{$name}: #{$weight};
+    }
+
+    // Link
+    --link-color: var(--color-primary);
+    --link-hover: var(--color-primary-hover);
+    --link-active: var(--color-primary-hover);
+    --link-visited: var(--color-primary);
+    --link-focus-outline: dashed #{rem-calc(2)} var(--color-primary);
+    --link-focus-outline-offset: #{rem-calc(4)};
+
+    // Button primary
+    --btn-primary-bg: var(--color-primary);
+    --btn-primary-hover: var(--color-primary-hover);
+    --btn-primary-active: var(--color-primary);
+    --btn-primary-label: var(--color-black);
+    --btn-primary-border: var(--color-primary);
+
+    // Card
+    --card-border: var(--color-gray-900);
+
+    // Radius
+    @each $name, $value in $radius {
+        --radius-#{$name}: #{$value};
+    }
+
+
+    
+}

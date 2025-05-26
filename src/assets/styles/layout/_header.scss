@@ -1,0 +1,496 @@
+@use "sass:map";
+@use "@styles/variables" as *;
+@use "@styles/mixins" as *;
+
+/* =============================================
+   HEADER BASE STYLES - MOBILE FIRST
+   ============================================= */
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: rem-calc(100);
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-black-alpha);
+    z-index: 1000;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+    // Mobile: header rimane sempre alla stessa altezza
+    @include respond-to(sm) {
+        // Desktop: aggiungi transizione per altezza
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+    }
+
+    &--scrolled {
+        background-color: var(--color-white);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+        .main-nav__link,
+        .main-nav__submenu-link {
+            color: var(--color-black);
+        }
+
+        .main-nav__submenu {
+            background: var(--color-white);
+        }
+
+        .header__burger span {
+            background-color: var(--color-black);
+        }
+
+        // Desktop: effetto rimpicciolimento
+        @include respond-to(sm) {
+            height: rem-calc(60);
+            
+            .header__logo {
+                height: rem-calc(40);
+                
+                img {
+                    width: rem-calc(40);
+                }
+            }
+            
+            .main-nav__submenu {
+                top: rem-calc(60);
+
+                &.is-open::after {
+                    top: rem-calc(60) !important;
+                    background-color: var(--color-white);
+                }
+            }
+        }
+    }
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        // padding: 0 rem-calc(24);
+    }
+
+    &__logo {
+        height: rem-calc(64);
+        z-index: 1000;
+        
+        img {
+            width: rem-calc(64);
+            height: auto;
+        }
+
+        // Desktop: aggiungi transizioni
+        @include respond-to(sm) {
+            transition: height 0.3s ease;
+            
+            img {
+                transition: width 0.3s ease;
+            }
+        }
+    }
+
+    &__burger {
+        display: flex; // Mobile: sempre visibile
+        flex-direction: column;
+        justify-content: space-around;
+        width: rem-calc(32);
+        height: rem-calc(24);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+
+        span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        &.is-active {
+            span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            span:nth-child(2) {
+                opacity: 0;
+            }
+            span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+        }
+
+        // Desktop: nascondi burger
+        @include respond-to(sm) {
+            display: none;
+        }
+    }
+
+    // Mobile: quando menu è aperto
+    &.menu-open {
+        background-color: var(--color-white);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+        .header__burger span {
+            background-color: var(--color-black);
+        }
+    }
+}
+
+/* =============================================
+   NAVIGATION - MOBILE FIRST
+   ============================================= */
+
+.main-nav {
+    // Mobile: overlay container nascosto di default
+    display: none;
+    position: fixed;
+    top: rem-calc(100);
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-white);
+    z-index: 998;
+    transition: all 0.3s ease;
+
+    &.is-open {
+        display: flex;
+        justify-content: center;
+    }
+
+    // Desktop: ripristina comportamento normale
+    @include respond-to(sm) {
+        display: block;
+        position: static;
+        width: auto;
+        height: auto;
+        background: transparent;
+        z-index: auto;
+    }
+
+    &__menu {
+        // Mobile: contenitore interno scrollabile
+        position: relative;
+        width: 100%;
+        max-width: rem-calc(540);
+        height: calc(100vh - rem-calc(200)); // Lascia spazio per header e CTA
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 0 rem-calc(28);
+        gap: 0;
+        overflow-y: auto;
+        list-style: none;
+        margin: 0;
+
+        // Desktop: menu orizzontale
+        @include respond-to(sm) {
+            position: static;
+            width: auto;
+            max-width: none;
+            height: auto;
+            background: transparent;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0;
+            gap: rem-calc(32);
+            overflow: visible;
+        }
+    }
+
+    &__item {
+        // Mobile: item a tutta larghezza
+        width: 100%;
+        border-bottom: 1px solid var(--color-black);
+        position: relative;
+
+        // Desktop: item auto-width
+        @include respond-to(sm) {
+            width: auto;
+            border-bottom: none;
+        }
+    }
+
+    &__link {
+        // Mobile: link grandi
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: rem-calc(20) 0;
+        color: var(--color-black);
+        font-size: var(--font-size-menu);
+        text-decoration: none;
+        font-weight: var(--font-weight-bold);
+        justify-content: space-between;
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: var(--color-primary);
+        }
+
+        // Desktop: link più piccoli, bianchi
+        @include respond-to(sm) {
+            width: auto;
+            padding: rem-calc(12) 0;
+            color: var(--color-white);
+            font-size: var(--font-size-menu);
+            justify-content: flex-start;
+        }
+    }
+
+    &__arrow {
+        // Mobile: freccia normalizzata, ruotata verso destra
+        width: rem-calc(32);
+        height: rem-calc(32);
+        transition: transform 0.3s ease;
+        transform: rotate(-90deg); // Mobile: ruota verso destra
+
+        // Desktop: freccia verso il basso, dimensione ottimizzata
+        @include respond-to(sm) {
+            width: rem-calc(18);
+            height: rem-calc(18);
+            margin-left: rem-calc(8);
+            transform: none; // Desktop: nessuna rotazione
+        }
+
+        &.is-rotated {
+            transform: rotate(90deg); // Ruota verso sinistra quando attivato
+            
+            @include respond-to(sm) {
+                transform: rotate(180deg); // Desktop: ruota verso l'alto
+            }
+        }
+    }
+
+    &__submenu {
+        // Mobile: overlay container che copre tutto lo schermo
+        position: fixed;
+        top: rem-calc(100);
+        left: 100vw;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--color-white);
+        z-index: 1002;
+        transition: left 0.3s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &.is-open {
+            left: 0; // Slide in da destra
+        }
+
+        // Desktop: submenu orizzontale sotto header
+        @include respond-to(sm) {
+            position: fixed;
+            top: rem-calc(100);
+            left: 100vw; 
+            right: 0;
+            width: 100%;
+            height: rem-calc(60);
+            border-top: none;
+            flex-direction: row;
+            justify-content: left;
+            align-items: center;
+            gap: rem-calc(8);
+            border-radius: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
+            z-index: 999;
+            overflow: visible;
+            opacity: 0;
+            visibility: hidden;
+            background: transparent;
+            margin: 0 auto;
+
+            @include respond-to(sm) { 
+                max-width: calc(map.get($container-max-widths, sm) - rem-calc(56)); // 720px
+            }
+
+            @include respond-to(md) { 
+                max-width: calc(map.get($container-max-widths, md) - rem-calc(56)); // 960px
+            }
+
+            @include respond-to(lg) { 
+                max-width: calc(map.get($container-max-widths, lg) - rem-calc(56)); // 1140px
+            }
+
+            @include respond-to(xl) { 
+                max-width: calc(map.get($container-max-widths, xl) - rem-calc(56)); // 1140px
+            }
+
+            &.is-open {
+                opacity: 1;
+                visibility: visible;
+                
+                &::after {
+                    content: '';
+                    position: fixed;
+                    top: rem-calc(100);
+                    left: 0;
+                    right: 0;
+                    width: 100vw;
+                    height: rem-calc(60);
+                    background-color: var(--color-black-alpha);
+                    border-top: rem-calc(1) solid var(--color-primary);
+                    border-bottom: rem-calc(1) solid var(--color-primary);
+                    z-index: -1;
+                    transition: top 0.3s ease;
+                }
+            }
+        }
+    }
+    
+    // Mobile: quando il submenu è aperto, comportati come .main-nav__menu
+    .main-nav__submenu.is-open {
+        @media (max-width: 767px) {
+            width: 84.44%;
+            max-width: calc(rem-calc(540) - rem-calc(56));
+            height: calc(100vh - rem-calc(200));
+            background: var(--color-white);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            padding: 0;
+            gap: 0;
+            overflow-y: auto;
+            list-style: none;
+            margin: 0;
+            left: auto; // Reset left
+            transition: none; // Nessuna transizione per il contenuto interno
+        }
+    }
+
+    &__submenu-item {
+        // Mobile: item a tutta larghezza
+        width: 100%;
+        border-bottom: 1px solid var(--color-black);
+        margin: 0;
+
+        &.submenu-back-item {
+            display: block;
+
+            .main-nav__submenu-link {
+                font-weight: var(--font-weight-bold); // Stesso peso del menu principale
+                color: var(--color-black); // Nero come gli altri link
+                font-size: var(--font-size-menu); // Assicura stesso font size
+            }
+
+            // Desktop: nascondi pulsante indietro
+            @include respond-to(sm) {
+                display: none;
+            }
+        }
+
+        // Desktop: item auto-width
+        @include respond-to(sm) {
+            width: auto;
+            border-bottom: none;
+        }
+    }
+
+    &__submenu-link {
+        // Mobile: link grandi, stesso stile del menu principale
+        display: block;
+        width: 100%;
+        padding: rem-calc(20) 0;
+        color: var(--color-black);
+        font-size: var(--font-size-menu);
+        font-weight: var(--font-weight-bold); // Stesso peso del menu principale
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: var(--color-primary);
+            background: none;
+        }
+
+        // Mobile: per il pulsante "Indietro" con freccia
+        &.submenu-back-link {
+            display: flex;
+            align-items: center;
+            gap: rem-calc(8);
+            color: var(--color-black); // Assicura che sia nero
+
+            .main-nav__arrow--back {
+                width: rem-calc(24);
+                height: rem-calc(24);
+                // Nessuna transizione per evitare rotazioni indesiderate
+            }
+            
+            // Effetto hover per il link del back
+            &:hover {
+                color: var(--color-primary);
+                
+                .main-nav__arrow--back {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        // Desktop: link bianchi, stesso stile del menu principale
+        @include respond-to(sm) {
+            width: auto;
+            padding: rem-calc(18) rem-calc(24);
+            color: var(--color-white);
+            font-size: var(--font-size-menu);
+            font-weight: var(--font-weight-bold); // Stesso peso del menu principale (non 500)
+            white-space: nowrap;
+        }
+    }
+}
+
+/* =============================================
+   CTA BUTTON STYLES
+   ============================================= */
+
+.header__cta {
+    // Mobile: nascondi CTA nel header di default
+    display: none;
+
+    // Desktop: mostra CTA nel header
+    @include respond-to(sm) {
+        display: inline-flex;
+        align-items: center;
+        margin-left: rem-calc(24);
+    }
+}
+
+// Mobile: riposiziona il CTA quando menu è aperto
+.header.menu-open .header__cta {
+    position: fixed;
+    bottom: rem-calc(24);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // Desktop: mantieni comportamento normale
+    @include respond-to(sm) {
+        position: static;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        display: inline-flex;
+    }
+}
+
+/* =============================================
+   UTILITY CLASSES
+   ============================================= */
+
+.no-scroll {
+    overflow: hidden;
+}

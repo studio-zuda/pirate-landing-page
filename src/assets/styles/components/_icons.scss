@@ -1,0 +1,262 @@
+@use "@styles/mixins" as *;
+@use "@styles/variables" as *;
+
+// Stili base per tutte le icone SVG
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    
+    // Smooth transitions per hover/focus
+    transition: all 0.2s ease;
+    
+    // Colori personalizzabili usando le variabili del progetto
+    --icon-color: currentColor;
+    --icon-hover-color: var(--color-primary);
+    
+    // Forza il colore su tutti i path SVG
+    svg {
+        fill: var(--icon-color) !important;
+        stroke: none !important;
+        
+        path {
+            fill: var(--icon-color) !important;
+            stroke: none !important;
+        }
+        
+        * {
+            fill: var(--icon-color) !important;
+            stroke: none !important;
+        }
+    }
+    
+    &:hover {
+        svg {
+            fill: var(--icon-hover-color) !important;
+            
+            path {
+                fill: var(--icon-hover-color) !important;
+            }
+            
+            * {
+                fill: var(--icon-hover-color) !important;
+            }
+        }
+    }
+}
+
+// Dimensioni delle icone
+.icon--small {
+    width: rem-calc(16);
+    height: rem-calc(16);
+}
+
+.icon--medium {
+    width: rem-calc(24);
+    height: rem-calc(24);
+}
+
+.icon--large {
+    width: rem-calc(32);
+    height: rem-calc(32);
+}
+
+.icon--xlarge {
+    width: rem-calc(48);
+    height: rem-calc(48);
+}
+
+// Icone di navigazione
+.nav-icon {
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+// Icone social
+.social-icon {
+    // Colori specifici per social - giallo fisso usando la variabile del progetto
+    --icon-color: var(--color-primary);
+    --icon-hover-color: var(--color-primary);
+    transition: none; // Rimuovi tutte le transizioni
+    
+    // Tutte le icone social rimangono sempre gialle - nessuna animazione o cambio colore
+    &.social-icon--facebook,
+    &.social-icon--twitter,
+    &.social-icon--instagram, 
+    &.social-icon--linkedin,
+    &.social-icon--mastodon,
+    &.social-icon--twitch {
+        --icon-color: var(--color-primary);
+        --icon-hover-color: var(--color-primary);
+        transition: none;
+    }
+}
+
+// Temi colore per icone usando le variabili del progetto
+.icon--primary {
+    --icon-color: var(--color-primary);
+    --icon-hover-color: var(--color-primary-hover);
+}
+
+.icon--secondary {
+    --icon-color: var(--color-secondary);
+    --icon-hover-color: var(--color-secondary);
+}
+
+.icon--surface {
+    --icon-color: var(--color-surface);
+    --icon-hover-color: var(--color-subtle);
+}
+
+.icon--subtle {
+    --icon-color: var(--color-subtle);
+    --icon-hover-color: var(--color-primary);
+}
+
+.icon--black {
+    --icon-color: var(--color-black);
+    --icon-hover-color: var(--color-primary);
+}
+
+.icon--white {
+    --icon-color: var(--color-white);
+    --icon-hover-color: var(--color-primary);
+}
+
+// Icone nei bottoni
+.btn-icon {
+    margin-right: rem-calc(8);
+    transition: transform 0.2s ease;
+    
+    // Posizione a destra del testo
+    &--right {
+        margin-right: 0;
+        margin-left: rem-calc(8);
+    }
+    
+    // Icona nera (override del colore)
+    &--black {
+        filter: brightness(0) saturate(100%);
+    }
+    
+    // Dimensioni per pulsanti piccoli
+    .btn--small & {
+        margin-right: rem-calc(6);
+        
+        &.btn-icon--right {
+            margin-right: 0;
+            margin-left: rem-calc(6);
+        }
+    }
+    
+    // Dimensioni per pulsanti grandi
+    .btn--large & {
+        margin-right: rem-calc(10);
+        
+        &.btn-icon--right {
+            margin-right: 0;
+            margin-left: rem-calc(10);
+        }
+    }
+    
+    // Effetto hover
+    .btn:hover & {
+        &.btn-icon--right {
+            transform: translateX(rem-calc(2));
+        }
+    }
+}
+
+// Icone decorative (senza hover effects)
+.decorative-icon {
+    pointer-events: none;
+}
+
+// Icone specifiche per contesto
+.main-nav__arrow {
+    // Forza l'eredità del colore del testo
+    --icon-color: currentColor;
+    --icon-hover-color: currentColor;
+    
+    // Mobile: freccia ruotata verso destra, NESSUNA transizione
+    transform: rotate(-90deg);
+    transition: none; // Nessuna animazione su mobile
+    
+    // Desktop: freccia verso il basso, CON transizione
+    @include respond-to(sm) {
+        margin-left: rem-calc(8);
+        transform: none;
+        transition: transform 0.3s ease; // Animazione solo su desktop
+    }
+    
+    // Rimuovi l'effetto scale al hover ereditato da .nav-icon
+    &:hover {
+        transform: rotate(-90deg); // Mobile: mantieni sempre la rotazione fissa
+        
+        @include respond-to(sm) {
+            transform: none; // Desktop: mantieni la trasformazione base
+        }
+        
+        // Se è in stato rotated, mantieni quella trasformazione
+        &.is-rotated {
+            transform: rotate(-90deg); // Mobile: sempre fissa
+            
+            @include respond-to(sm) {
+                transform: rotate(180deg); // Desktop: mantieni la rotazione
+            }
+        }
+    }
+    
+    &.is-rotated {
+        // Mobile: mantieni sempre la stessa rotazione (nessun cambio)
+        transform: rotate(-90deg);
+        
+        // Desktop: ruota la freccia verso l'alto
+        @include respond-to(sm) {
+            transform: rotate(180deg);
+        }
+    }
+    
+    &--back {
+        // Sovrascrive dimensioni e animazioni per la freccia del back
+        transform: none !important;
+        transition: color 0.3s ease, opacity 0.3s ease;
+        
+        @include respond-to(sm) {
+            transform: none !important;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+        
+        // Effetto hover per la freccia del back
+        &:hover {
+            opacity: 0.7;
+            --icon-color: var(--color-primary);
+        }
+    }
+}
+
+// ============================================================================
+// PERSONALIZZAZIONI CUSTOM ICONE
+// ============================================================================
+
+// Icone del menu con colori personalizzati
+.main-nav__arrow {
+    --icon-color: currentColor;
+    --icon-hover-color: currentColor;
+}
+
+// Tema pirata personalizzato usando le variabili del progetto
+.icon--pirate {
+    --icon-color: var(--color-secondary);
+    --icon-hover-color: var(--color-primary);
+}
+
+// Icone animate
+.icon--animated {
+    transition: all 0.3s ease;
+    
+    &:hover {
+        --icon-color: var(--color-secondary);
+        transform: scale(1.1);
+    }
+}

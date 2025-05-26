@@ -1,0 +1,18 @@
+
+@use "@bootstrap/scss/bootstrap" as *;
+@use "@styles/reset" as *;
+@use "@styles/mixins" as *;
+@use "@styles/variables" as *;
+@use "@styles/root" as *;
+@use "@styles/typography" as *;
+@use "@styles/base" as *;
+@use "@styles/sections" as *;
+
+@use "@styles/layout/header" as *;
+@use "@styles/layout/footer" as *;
+@use "@styles/components/icons" as *;
+@use "@styles/components/splide" as *;
+
+
+
+

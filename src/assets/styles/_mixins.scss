@@ -1,0 +1,210 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use "sass:meta";
+@use '@/assets/styles/variables' as *;
+
+// Mixin per breakpoint
+
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $value: map.get($breakpoints, $breakpoint);
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Il breakpoint #{$breakpoint} non è definito nella mappa \$breakpoints.";
+  }
+}
+
+// Spacer
+
+@mixin spacer() {
+  @each $key, $value in $spacers {
+    .m-#{$key}   { margin: #{$value}; }
+    .mt-#{$key}  { margin-top: #{$value}; }
+    .mr-#{$key}  { margin-right: #{$value}; }
+    .mb-#{$key}  { margin-bottom: #{$value}; }
+    .ml-#{$key}  { margin-left: #{$value}; }
+    .mx-#{$key}  { margin-left: #{$value}; margin-right: #{$value}; }
+    .my-#{$key}  { margin-top: #{$value}; margin-bottom: #{$value}; }
+
+    .p-#{$key}   { padding: #{$value}; }
+    .pt-#{$key}  { padding-top: #{$value}; }
+    .pr-#{$key}  { padding-right: #{$value}; }
+    .pb-#{$key}  { padding-bottom: #{$value}; }
+    .pl-#{$key}  { padding-left: #{$value}; }
+    .px-#{$key}  { padding-left: #{$value}; padding-right: #{$value}; }
+    .py-#{$key}  { padding-top: #{$value}; padding-bottom: #{$value}; }
+  }
+
+  @each $bp, $bp-value in $breakpoints {
+    @if $bp != xs {
+      @include respond-to($bp) {
+        @each $key, $value in $spacers {
+          .mb-#{$bp}-#{$key} { margin-bottom: #{$value}; }
+          .mt-#{$bp}-#{$key} { margin-top: #{$value}; }
+          .mr-#{$bp}-#{$key} { margin-right: #{$value}; }
+          .ml-#{$bp}-#{$key} { margin-left: #{$value}; }
+          .m-#{$bp}-#{$key}  { margin: #{$value}; }
+          .mx-#{$bp}-#{$key} { margin-left: #{$value}; margin-right: #{$value}; }
+          .my-#{$bp}-#{$key} { margin-top: #{$value}; margin-bottom: #{$value}; }
+
+          .pb-#{$bp}-#{$key} { padding-bottom: #{$value}; }
+          .pt-#{$bp}-#{$key} { padding-top: #{$value}; }
+          .pr-#{$bp}-#{$key} { padding-right: #{$value}; }
+          .pl-#{$bp}-#{$key} { padding-left: #{$value}; }
+          .p-#{$bp}-#{$key}  { padding: #{$value}; }
+          .px-#{$bp}-#{$key} { padding-left: #{$value}; padding-right: #{$value}; }
+          .py-#{$bp}-#{$key} { padding-top: #{$value}; padding-bottom: #{$value}; }
+        }
+      }
+    }
+  }
+}
+
+@include spacer();
+
+// Gap utilities
+@mixin gap-utilities() {
+    // Base gap
+    @each $key, $value in $gap-values {
+        .gap-#{$key} { gap: #{$value}; }
+        .row-gap-#{$key} { row-gap: #{$value}; }
+        .col-gap-#{$key} { column-gap: #{$value}; }
+    }
+
+    // Responsive gap
+    @each $bp, $bp-value in $breakpoints {
+        @include respond-to($bp) {
+            @each $key, $value in $gap-values {
+                .gap-#{$bp}-#{$key} { gap: #{$value}; }
+                .row-gap-#{$bp}-#{$key} { row-gap: #{$value}; }
+                .col-gap-#{$bp}-#{$key} { column-gap: #{$value}; }
+            }
+        }
+    }
+}
+
+@include gap-utilities();
+
+// <div class="grid gap-8 gap-md-24"> 
+
+@mixin gap-spacers() {
+    // Genera le classi gap dinamiche dai valori definiti in $gap-values
+    @each $key, $value in $gap-values {
+        // Gap globale (orizzontale e verticale)
+        .gap-#{$key} {
+            gap: clamp(1rem, 2vw, #{$value});
+        }
+
+        // Gap per le colonne (gap-x) e righe (gap-y)
+        .gap-x-#{$key} {
+            column-gap: clamp(1rem, 2vw, #{$value});
+        }
+        .gap-y-#{$key} {
+            row-gap: clamp(1rem, 2vw, #{$value});
+        }
+    }
+
+    // Gap dinamico per breakpoints
+    @each $bp, $bp-value in $breakpoints {
+        @if $bp != xs {
+            @include respond-to($bp) {
+                @each $key, $value in $gap-values {
+                // Gap globale (orizzontale e verticale)
+                .gap-#{$bp}-#{$key} {
+                    gap: clamp(1rem, 2vw, #{$value});
+                }
+
+                // Gap per le colonne (gap-x) e righe (gap-y)
+                .gap-x-#{$bp}-#{$key} {
+                    column-gap: clamp(1rem, 2vw, #{$value});
+                }
+                .gap-y-#{$bp}-#{$key} {
+                    row-gap: clamp(1rem, 2vw, #{$value});
+                }
+                }
+            }
+        }
+    }
+}
+
+@include gap-spacers();
+
+/* Queste classi saranno generate per ciascun valore definito in $gap-values:
+.gap-4, .gap-8, .gap-12, ecc., con i gap calcolati in base alla funzione clamp().
+.gap-x-4, .gap-x-8, ecc., per il gap orizzontale.
+.gap-y-4, .gap-y-8, ecc., per il gap verticale.
+A livello di breakpoint: .gap-md-4, .gap-md-8, ecc., per i breakpoint definiti.
+Puoi adattare i valori di clamp() (ad esempio, modificare il valore di 2vw o il minimo) in base alle tue preferenze o alle specifiche del design. */
+
+// Mixin Flex 
+@mixin flex() {
+  .flex { display: flex; }
+  .flex-row { flex-direction: row; }
+  .flex-column { flex-direction: column; }
+  .flex-wrap { flex-wrap: wrap; }
+  .flex-nowrap { flex-wrap: nowrap; }
+
+  $justify-options: (start: flex-start, center: center, end: flex-end, between: space-between, around: space-around, evenly: space-evenly);
+  @each $name, $value in $justify-options {
+    .justify-#{$name} { justify-content: $value; }
+  }
+
+  $align-options: (start: flex-start, center: center, end: flex-end, stretch: stretch, baseline: baseline);
+  @each $name, $value in $align-options {
+    .items-#{$name} { align-items: $value; }
+  }
+
+  // Le classi gap sono già generate da gap-utilities
+  // Le classi responsive sono già generate da gap-utilities
+}
+
+@include flex();
+
+// Mixin Grid 
+@mixin grid() {
+  .grid {
+    display: grid;
+  }
+
+  @for $i from 1 through 12 {
+    .grid-cols-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+  }
+
+  .grid-cols-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  .grid-cols-auto-fill {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  $align-options: (start: start, center: center, end: end, stretch: stretch);
+  @each $name, $value in $align-options {
+    .items-#{$name} { align-items: $value; }
+    .justify-#{$name} { justify-items: $value; }
+  }
+
+  @each $bp, $size in $breakpoints {
+    @include respond-to($bp) {
+      @for $i from 1 through 12 {
+        .#{$bp}-grid-cols-#{$i} {
+          grid-template-columns: repeat($i, 1fr);
+        }
+      }
+      @each $name, $value in $align-options {
+        .#{$bp}-items-#{$name} {
+          align-items: $value;
+        }
+        .#{$bp}-justify-#{$name} {
+          justify-items: $value;
+        }
+      }
+    }
+  }
+}
+
+@include grid();

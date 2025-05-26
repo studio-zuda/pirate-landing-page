@@ -1,0 +1,178 @@
+@use "sass:color";
+@use "@styles/mixins" as *;
+@use "@styles/variables" as *;
+@use "@styles/root" as *;
+
+// ============================================================================
+// BASE STYLES
+// ============================================================================
+
+// ============================================================================
+// BODY & LAYOUT
+// ============================================================================
+
+body {
+    position: relative;
+    font-family: $font-sans;
+    background: var(--body-bg);
+    color: var(--text-default);
+    text-rendering: optimizeLegibility;
+}
+
+.container {
+    padding-left: rem-calc(28);
+    padding-right: rem-calc(28);
+
+    @include respond-to(md) {
+        // padding-left: inherit;
+        // padding-right: inherit;
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+.skip-container {
+    position: relative;
+    z-index: 9999;
+
+    &__skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        width: auto;
+        height: auto;
+        overflow: hidden;
+    
+        &:focus-visible {
+            left: 1rem;
+            top: 1rem;
+            outline: var(--link-focus-outline);
+            outline-offset: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: visible;
+            background: var(--color-white);
+            color: var(--color-primary);
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            text-decoration: underline;
+            z-index: 2001;
+            display: inline-block;
+            width: auto;
+            height: auto;
+        }
+    }
+}
+
+// ============================================================================
+// ICONS
+// ============================================================================
+
+.icon {
+    color: var(--icon-color);
+}
+
+// ============================================================================
+// LINKS
+// ============================================================================
+
+.link {
+    color: var(--link-color);
+    text-decoration: underline;
+    text-underline-offset: rem-calc(4);
+    transition: color 0.2s ease-in-out;
+    min-width: rem-calc(44);
+    min-height: rem-calc(44);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 rem-calc(8);
+
+    &:hover {
+        color: var(--link-hover);
+        text-decoration: none;
+    }
+
+    &:active {
+        color: var(--link-active);
+    }
+
+    &:visited {
+        color: var(--link-visited);
+    }
+
+    &:focus {
+        outline-style: solid;
+        outline-width: rem-calc(2);
+        outline-color: var(--color-transparent);
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: var(--link-focus-outline);
+    }
+}
+
+// ============================================================================
+// BUTTONS
+// ============================================================================
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    min-width: rem-calc(44);
+    min-height: rem-calc(44);
+    transition: background 0.3s ease, transform 0.2s ease;
+    padding: rem-calc(8) rem-calc(16);
+    border-radius: var(--radius-xs);
+
+    &:focus {
+        outline-style: solid;
+        outline-width: rem-calc(2);
+        outline-color: var(--color-transparent);
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: var(--link-focus-outline);
+        outline-offset: var(--link-focus-outline-offset);
+    }
+
+    // Primary Button
+    &--primary {
+        background-color: var(--btn-primary-bg);
+        color: var(--btn-primary-label);
+        border: 1px solid var(--btn-primary-border);
+
+        &:hover{
+            background-color: var(--btn-primary-hover);
+            color: var(--btn-primary-label);
+        }
+
+        &:active {
+            background-color: var(--btn-primary-active);
+            color: var(--btn-primary-label);
+        }
+
+        &:disabled,
+        &[aria-disabled="true"] {
+            background: var(--input-disabled-bg);
+            color: var(--input-disabled-text);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    }
+}

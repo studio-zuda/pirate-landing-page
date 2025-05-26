@@ -1,0 +1,164 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+
+$asset-path: "~@images/" !default; // Path per le immagini
+
+// Funzione per calcolare i valori da px a rem
+@function rem-calc($size) {
+    @return #{
+        math.div($size, $font-base)
+    }rem;
+}
+
+// Definizione dei Fonts
+$font-base: 16; // Base di riferimento per la conversione px -> rem
+$font-sans: "Roboto", sans-serif;
+
+$font-weights: (
+    extra-bold: 700,
+    bold: 600,
+    medium: 500,
+    regular: 400
+);
+
+// Font sizes - Scale tipografica
+$font-sizes: (
+    // Headings
+    h1-mobile: rem-calc(48),
+    h1-desktop: rem-calc(72),
+    h2-mobile: rem-calc(32),
+    h2-desktop: rem-calc(48),
+    h3-mobile: rem-calc(20),
+    h3-desktop: rem-calc(24),
+    
+    // Body text
+    body: rem-calc(16),
+    body-large: rem-calc(18),
+    body-small: rem-calc(14),
+    
+    // UI elements
+    button: rem-calc(16),
+    caption: rem-calc(12),
+    menu: rem-calc(24),
+    
+    // Event card specific
+    event-title: rem-calc(24),
+    event-desc: rem-calc(18),
+    
+    // Timeline
+    timeline-number: rem-calc(72)
+) !default;
+
+// Line heights
+$line-heights: (
+    tight: 1.1,
+    normal: 1.4,
+    relaxed: 1.6
+) !default;
+
+// Spacers
+$spacers: (
+    4: rem-calc(4),
+    8: rem-calc(8),
+    16: rem-calc(16),
+    20: rem-calc(20),
+    24: rem-calc(24),
+    32: rem-calc(32),
+    40: rem-calc(40),
+    48: rem-calc(48),
+    56: rem-calc(56),
+    60: rem-calc(60),
+    80: rem-calc(80),
+    96: rem-calc(96),
+    100: rem-calc(100)
+) !default;
+
+$gap-values: (
+    4: rem-calc(4),
+    8: rem-calc(8),
+    12: rem-calc(12),
+    16: rem-calc(16),
+    24: rem-calc(24),
+    32: rem-calc(32),
+    40: rem-calc(40)
+) !default;
+
+$radius: (
+    xs: rem-calc(4),
+    sm: rem-calc(8),
+    md: rem-calc(10),
+    lg: rem-calc(24),
+    xl: rem-calc(40),
+    circle: 50%
+) !default;
+
+// Mappa dei breakpoint per riferimenti dinamici
+// $breakpoints: (
+//     xs: 360px,
+//     sm: 768px,
+//     md: 1024px,
+//     lg: 1280px,
+//     xl: 1440px,
+//     xxl: 1600px
+// ) !default;
+
+// Mappa dei breakpoint per riferimenti dinamici
+$breakpoints: (
+    xs: 576px,
+    sm: 768px,
+    md: 992px,
+    lg: 1200px,
+    xl: 1400px,
+    xxl: 1600px
+) !default;
+
+// Container max-widths per sistema responsive
+$container-max-widths: (
+    xs: 540px,    // >= 768px
+    sm: 720px,    // >= 992px  
+    md: 960px,    // >= 1200px
+    lg: 1140px,   // >= 1400px
+    xl: 1320px   // >= 1600px
+) !default;
+
+// Primitive colors
+$yellow-500:   #E8B931 !default;
+$yellow-600:   #C49A1A !default;
+$yellow-500-alpha: rgba(232, 185, 49, 0.95) !default;
+$red-700:      #B3261E !default;
+$gray-100:     #F5F5F5 !default;
+$gray-200:     #A9A9A9 !default;
+$black:        #000000 !default;
+$black-alpha: rgba(0, 0, 0, 0.3) !default;
+$white:        #ffffff !default;
+$transparent:  transparent !default;
+
+// Design tokens
+$color-primary:         $yellow-500 !default;
+$color-primary-hover:   $yellow-600 !default;
+$color-primary-alpha:   $yellow-500-alpha !default;
+
+$color-secondary:       $red-700 !default;
+
+$color-black:           $black !default;
+$color-black-alpha:     $black-alpha !default;
+$color-white:           $white !default;
+$color-transparent:     $transparent !default;
+
+$color-surface:         $gray-100 !default;
+$color-subtle:          $gray-200 !default;
+
+$colors: (
+    "primary":         $color-primary,
+    "primary-hover":   $color-primary-hover,
+    "primary-alpha":   $color-primary-alpha,
+    "secondary":       $color-secondary,
+    "surface":         $color-surface,
+    "subtle":          $color-subtle,
+    "black":           $color-black,
+    "black-alpha":     $color-black-alpha,
+    "white":           $color-white,
+    "transparent":     $color-transparent,
+) !default;

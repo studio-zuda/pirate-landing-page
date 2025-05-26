@@ -1,0 +1,247 @@
+@use "sass:color";
+@use "@styles/mixins" as *;
+@use "@styles/variables" as *;
+
+
+// ============================================================================
+// MAIN PAGE SECTIONS
+// ============================================================================
+
+/* Section Base */
+.section {
+    padding: map-get($spacers, 60) 0;
+
+    &__title {
+        text-align: center;
+        margin-inline: auto;
+        margin-bottom: map-get($spacers, 60); 
+    }
+
+    @include respond-to(lg) {
+        padding: map-get($spacers, 100) 0;
+    }
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    display: grid;
+    place-items: center end;
+    height: rem-calc(800);
+    background-image: url('@images/galleon-hero.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &__title {
+        justify-self: center;
+        align-self: end;
+        text-align: center;
+        margin-bottom: rem-calc(40);
+        color: var(--color-white);
+    }
+}
+
+/* Intro Section */
+.intro {
+    display: grid;
+    place-items: center;
+    gap: rem-calc(16);
+    text-align: center;
+
+    &__title {
+        color: var(--text-heading);
+    }
+
+    &__desc {
+        margin-bottom: rem-calc(16);
+    }
+}
+
+/* Showcase Section Component */
+.showcase-section{
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    @include respond-to(md) {
+        height: rem-calc(600);
+        overflow: hidden;
+    }
+
+    &__container {
+        position: relative;
+        padding-right: 0;
+        padding-left: 0;
+        //max-width: 100%;
+
+        @include respond-to(md) {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    &__img {
+        height: rem-calc(310);
+        width: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+
+        @include respond-to(md) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+    }
+
+    &__title {
+        text-transform: uppercase;
+        margin-bottom: rem-calc(48);
+
+        @include respond-to(md) {
+            margin-bottom: rem-calc(28);
+        }
+    }
+
+    &__content {
+        position: relative;
+        padding: rem-calc(60) rem-calc(28);
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: var(--color-primary);
+
+        @include respond-to(md) {
+            padding: rem-calc(94) rem-calc(130);
+            background-color: var(--color-primary-alpha);
+        }
+    }
+}
+
+/* Event Card Component */
+.event-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 100%;
+    
+    // Su desktop nel grid
+    @media (min-width: 768px) {
+        max-width: none; // Rimuovi il limite di larghezza su desktop
+        height: 100%; // Occupa tutta l'altezza della cella del grid
+    }
+    
+    // Su mobile nel slider
+    @media (max-width: 767px) {
+        margin: 0 auto;
+        min-width: 280px;
+        max-width: rem-calc(350);
+    }
+
+    &__img {
+        height: rem-calc(234);
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__body {
+        padding: rem-calc(16);
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    &__title {
+        font-size: var(--font-size-event-title);
+        font-weight: var(--font-weight-extra-bold);
+        margin-bottom: rem-calc(8);
+    }
+
+    &__desc {
+        font-size: var(--font-size-event-desc);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-subtle);
+        margin-bottom: rem-calc(32);
+        flex-grow: 1;
+    }
+
+    &__btn {
+        align-self: flex-end;
+        margin-top: auto;
+    }
+}
+
+/* Events Section */
+
+/* Timeline Section */
+.timeline {
+    background-color: var(--color-surface);
+
+    &__steps {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        gap: rem-calc(48);
+        position: relative;
+        list-style: none;
+        padding: rem-calc(24) 0;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 100%;
+            z-index: 0;
+            border-left: rem-calc(1) dashed var(--color-secondary);
+        }
+
+        @include respond-to(sm) {
+            flex-direction: row; 
+            justify-content: center;
+            gap: 15%;
+
+            &::before {
+                top: 50%;
+                left: 0;
+                width: 100%;
+                border-left: none;
+                border-top: rem-calc(1) dashed var(--color-secondary);
+            }
+        }
+    }
+
+    &__step {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        z-index: 1;
+        width: rem-calc(140);
+        height: rem-calc(140);
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        font-size: var(--font-size-timeline-number);
+        font-weight: var(--font-weight-extra-bold);
+        color: var(--color-secondary);
+        
+        @include respond-to(sm) {
+            width: rem-calc(160);
+            height: rem-calc(160);
+        }
+    }
+}
