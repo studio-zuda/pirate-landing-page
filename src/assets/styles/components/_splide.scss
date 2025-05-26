@@ -28,8 +28,8 @@
     }
 
     &__slider {
-       @include respond-to(md) {
-            // Su desktop disabilita completamente Splide e nasconde le frecce
+       @include respond-to(sm) {
+            // Su tablet e desktop disabilita completamente Splide e nasconde le frecce
             .splide__track,
             .splide__list {
                 transform: none !important;
@@ -51,7 +51,28 @@
     }
 
     &__list {
-        // Layout desktop - grid 2 righe x 3 colonne
+        // Layout tablet - grid 2 colonne x 3 righe (768px - 991px)
+        @include respond-to(sm) {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: rem-calc(24);
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            
+            // Assicurati che tutti gli elementi siano visibili
+            li {
+                display: block !important;
+                position: static !important;
+                transform: none !important;
+                width: auto !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        }
+        
+        // Layout desktop - grid 3 colonne x 2 righe (992px+)
         @include respond-to(md) {
             display: grid !important;
             grid-template-columns: repeat(3, 1fr);
