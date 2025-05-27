@@ -271,10 +271,9 @@
             color: var(--color-primary);
         }
 
-        &--active {
-            // color: var(--color-primary);
-            // font-weight: var(--font-weight-medium);
-        }
+        // &--active {
+            // Stili per link attivo possono essere aggiunti qui se necessario
+        //}
 
         // Desktop: link più piccoli, bianchi
         @include respond-to(sm) {
