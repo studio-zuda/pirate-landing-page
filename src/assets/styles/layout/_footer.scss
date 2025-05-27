@@ -4,21 +4,12 @@
 .footer {
     background-color: var(--color-black);
     color: var(--color-white);
-    //padding-top: rem-calc(32);
-    // padding-bottom: rem-calc(40);
 
     &__container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        // gap: rem-calc(24);
         height: rem-calc(100);
-
-        @include respond-to(sm) {
-            // align-items: center;
-            // gap: rem-calc(12);
-            // justify-content: space-between;
-        }
     }
 
     &__logo {
@@ -73,3 +64,11 @@
         }
     }
 }
+
+// ============================================================================
+// FOOTER SOCIAL ICONS
+// ============================================================================
+
+// Le icone social usano la classe utility .icon-color-primary
+// Esempio: <svg class="icon icon--large social-icon icon-color-primary">
+// Oppure si può applicare direttamente nel JavaScript

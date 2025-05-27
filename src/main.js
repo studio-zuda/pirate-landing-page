@@ -26,7 +26,7 @@ document.querySelector('#app').innerHTML = `
                 <button
                     class="header__burger"
                     aria-label="Open menu"
-                    aria-controls="main-navigation"
+                    aria-controls="main-navigation" 
                     aria-expanded="false"
                 >                    
                     <span></span>
@@ -35,6 +35,11 @@ document.querySelector('#app').innerHTML = `
                 </button>
                     
                <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Main navigation">
+                    <div class="main-nav__header">
+                        <div class="main-nav__logo">
+                            <img src="${logo}" alt="Pirate" />
+                        </div>
+                    </div>
                     <ul class="main-nav__menu">
                         <li class="main-nav__item">
                             <a href="#" class="main-nav__link">Pirate</a>
@@ -60,7 +65,7 @@ document.querySelector('#app').innerHTML = `
                         </ul>
                         </li>
                         <li class="main-nav__item">
-                            <a href="#" class="main-nav__link">Ships</a>
+                            <a href="#" class="main-nav__link main-nav__link--active" aria-current="page">Ships</a>
                         </li>
                         <li class="main-nav__item">
                             <a href="#" class="main-nav__link">Events</a>
@@ -69,7 +74,7 @@ document.querySelector('#app').innerHTML = `
                     
                 </nav>
 
-                <a class="header__cta btn btn--primary" href="#">
+                <a class="header__cta button button--primary" href="#">
                     Contacts
                 </a>
 
@@ -142,9 +147,9 @@ document.querySelector('#app').innerHTML = `
                                         <div class="event-card__body">
                                             <h3 class="event-card__title">Boom belaying</h3>
                                             <p class="event-card__desc">Pirate ipsum argh bounty warp jack.</p>
-                                            <a class="btn btn--primary event-card__btn" href="#">
+                                            <a class="button button--primary event-card__button" href="#">
                                                 Read more
-                                                ${createIcon('arrowRightShort', { className: 'btn-icon btn-icon--right btn-icon--black', size: 'small' })}
+                                                ${createIcon('arrowRightShort', { className: 'button-icon button-icon--right icon-color-secondary', size: 'small' })}
                                             </a>
                                         </div>
                                     </div>
@@ -155,9 +160,9 @@ document.querySelector('#app').innerHTML = `
                                         <div class="event-card__body">
                                             <h3 class="event-card__title">Cannon firing</h3>
                                             <p class="event-card__desc">Tender smartly jack overhaul killick tender.</p>
-                                            <a class="btn btn--primary event-card__btn" href="#">
+                                            <a class="button button--primary event-card__button" href="#">
                                                 Read more
-                                                ${createIcon('arrowRightShort', { className: 'btn-icon btn-icon--right btn-icon--black', size: 'small' })}
+                                                ${createIcon('arrowRightShort', { className: 'button-icon button-icon--right icon-color-secondary', size: 'small' })}
                                             </a>
                                         </div>
                                     </div>
@@ -168,9 +173,9 @@ document.querySelector('#app').innerHTML = `
                                         <div class="event-card__body">
                                             <h3 class="event-card__title">Treasure hunt</h3>
                                             <p class="event-card__desc">Fleet driver to fluke bilge gangway.</p>
-                                            <a class="btn btn--primary event-card__btn" href="#">
+                                            <a class="button button--primary event-card__button" href="#">
                                                 Read more
-                                                ${createIcon('arrowRightShort', { className: 'btn-icon btn-icon--right btn-icon--black', size: 'small' })}
+                                                ${createIcon('arrowRightShort', { className: 'button-icon button-icon--right icon-color-secondary', size: 'small' })}
                                             </a>
                                         </div>
                                     </div>
@@ -181,9 +186,9 @@ document.querySelector('#app').innerHTML = `
                                         <div class="event-card__body">
                                             <h3 class="event-card__title">Pirate feast</h3>
                                             <p class="event-card__desc">Chase nipperkin just mutiny spanish hang.</p>
-                                            <a class="btn btn--primary event-card__btn" href="#">
+                                            <a class="button button--primary event-card__button" href="#">
                                                 Read more
-                                                ${createIcon('arrowRightShort', { className: 'btn-icon btn-icon--right btn-icon--black', size: 'small' })}
+                                                ${createIcon('arrowRightShort', { className: 'button-icon button-icon--right icon-color-secondary', size: 'small' })}
                                             </a>
                                         </div>
                                     </div>
@@ -194,9 +199,9 @@ document.querySelector('#app').innerHTML = `
                                         <div class="event-card__body">
                                             <h3 class="event-card__title">Sea battle</h3>
                                             <p class="event-card__desc">Coxswain jones' bow bilged clipper spyglass.</p>
-                                            <a class="btn btn--primary event-card__btn" href="#">
+                                            <a class="button button--primary event-card__button" href="#">
                                                 Read more
-                                                ${createIcon('arrowRightShort', { className: 'btn-icon btn-icon--right btn-icon--black', size: 'small' })}
+                                                ${createIcon('arrowRightShort', { className: 'button-icon button-icon--right icon-color-secondary', size: 'small' })}
                                             </a>
                                         </div>
                                     </div>
@@ -207,9 +212,9 @@ document.querySelector('#app').innerHTML = `
                                         <div class="event-card__body">
                                             <h3 class="event-card__title">Parrot show</h3>
                                             <p class="event-card__desc">Seven blossom blossom overhaul crow's chantey.</p>
-                                            <a class="btn btn--primary event-card__btn" href="#">
+                                            <a class="button button--primary event-card__button" href="#">
                                                 Read more
-                                                ${createIcon('arrowRightShort', { className: 'btn-icon btn-icon--right btn-icon--black', size: 'small' })}
+                                                ${createIcon('arrowRightShort', { className: 'button-icon button-icon--right icon-color-secondary', size: 'small' })}
                                             </a>
                                         </div>
                                     </div>
@@ -251,22 +256,22 @@ document.querySelector('#app').innerHTML = `
                     <ul class="footer__socials-list">
                         <li class="footer__socials-item">
                             <a class="footer__socials-link" href="#" aria-label="Mastodon">
-                                ${createIcon('mastodon', { className: 'social-icon', size: 'large' })}
+                                ${createIcon('mastodon', { className: 'social-icon icon-color-primary', size: 'large' })}
                             </a>
                         </li>
                         <li class="footer__socials-item">
                             <a class="footer__socials-link" href="#" aria-label="Instagram">
-                                ${createIcon('instagram', { className: 'social-icon', size: 'large' })}
+                                ${createIcon('instagram', { className: 'social-icon icon-color-primary', size: 'large' })}
                             </a>
                         </li>
                         <li class="footer__socials-item">
                             <a class="footer__socials-link" href="#" aria-label="Twitch">
-                                ${createIcon('twitch', { className: 'social-icon', size: 'large' })}
+                                ${createIcon('twitch', { className: 'social-icon icon-color-primary', size: 'large' })}
                             </a>
                         </li>
                     </ul>
                 </nav>
-                <a class="btn btn--primary footer__cta" href="#">
+                <a class="button button--primary footer__cta" href="#">
                     Contacts
                 </a>
             </div>

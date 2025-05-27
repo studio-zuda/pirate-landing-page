@@ -5,7 +5,7 @@ export function initMenu() {
   const menuItem = document.querySelector('.main-nav__item--has-submenu');
   const submenu = menuItem?.querySelector('.main-nav__submenu');
   const submenuLink = menuItem?.querySelector('.main-nav__link');
-  const submenuArrow = menuItem?.querySelector('.main-nav__arrow'); // Aggiungo la freccia
+  const submenuArrow = menuItem?.querySelector('.main-nav__arrow');
   const burger = document.querySelector('.header__burger');
   const menu = document.querySelector('.main-nav__menu');
   const mainNav = document.querySelector('.main-nav'); // Contenitore principale
@@ -18,12 +18,19 @@ export function initMenu() {
   // ARIA setup
   if (burger) {
     burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-controls', 'main-menu');
+    burger.setAttribute('aria-controls', 'main-navigation');
   }
 
   if (submenuLink) {
     submenuLink.setAttribute('aria-haspopup', 'true');
     submenuLink.setAttribute('aria-expanded', 'false');
+    submenuLink.setAttribute('aria-controls', 'submenu-parrots'); // ID del submenu
+  }
+
+  // Aggiungi ID al submenu per aria-controls
+  if (submenu) {
+    submenu.setAttribute('id', 'submenu-parrots');
+    submenu.setAttribute('aria-label', 'Parrots submenu');
   }
 
   // Le frecce del menu vengono create direttamente nel main.js con createContextIcon
@@ -31,9 +38,16 @@ export function initMenu() {
   function updateAria() {
     burger?.setAttribute('aria-expanded', String(isMenuOpen));
     submenuLink?.setAttribute('aria-expanded', String(isSubmenuOpen));
+    
+    // Aggiorna aria-label del burger in base allo stato
+    if (burger) {
+      burger.setAttribute('aria-label', isMenuOpen ? 'Close menu' : 'Open menu');
+    }
   }
 
   function closeAll() {
+    const wasMenuOpen = isMenuOpen;
+    
     isMenuOpen = false;
     isSubmenuOpen = false;
 
@@ -45,6 +59,11 @@ export function initMenu() {
     body.classList.remove('no-scroll');
 
     updateAria();
+    
+    // Focus management: riporta il focus sul burger quando si chiude
+    if (wasMenuOpen && isMobile()) {
+      burger?.focus();
+    }
   }
 
   function openMainMenu() {
@@ -59,6 +78,11 @@ export function initMenu() {
     body.classList.add('no-scroll');
 
     updateAria();
+    
+    // Focus management: mantieni il focus sul burger per permettere chiusura immediata
+    if (isMobile()) {
+      burger?.focus();
+    }
   }
 
   function openSubmenu() {
@@ -110,7 +134,7 @@ export function initMenu() {
       const backItem = document.createElement('li');
       backItem.className = 'main-nav__submenu-item submenu-back-item';
       backItem.innerHTML = `
-        <a href="#" class="main-nav__submenu-link submenu-back-link">
+        <a href="#" class="main-nav__submenu-link submenu-back-link" aria-label="Go back to main menu">
           ${createIcon('chevronLeft', { className: 'main-nav__arrow main-nav__arrow--back' })}
           Back
         </a>
@@ -198,6 +222,64 @@ export function initMenu() {
         closeSubmenu();
       } else if (isMenuOpen) {
         closeAll();
+      }
+    }
+    
+    // Navigazione con frecce direzionali nel menu
+    if (isMenuOpen && isMobile()) {
+      const focusedElement = document.activeElement;
+      const menuLinks = Array.from(menu?.querySelectorAll('.main-nav__link') || []);
+      const currentIndex = menuLinks.indexOf(focusedElement);
+      
+      // Se il focus è sul burger o non è su un link del menu
+      if (focusedElement === burger || currentIndex === -1) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          menuLinks[0]?.focus(); // Vai al primo link
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          menuLinks[menuLinks.length - 1]?.focus(); // Vai all'ultimo link
+        }
+      } else {
+        // Navigazione normale tra i link
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextIndex = (currentIndex + 1) % menuLinks.length;
+          menuLinks[nextIndex]?.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prevIndex = currentIndex === 0 ? menuLinks.length - 1 : currentIndex - 1;
+          menuLinks[prevIndex]?.focus();
+        }
+      }
+    }
+    
+    // Navigazione nel submenu
+    if (isSubmenuOpen && isMobile()) {
+      const focusedElement = document.activeElement;
+      const submenuLinks = Array.from(submenu?.querySelectorAll('.main-nav__submenu-link') || []);
+      const currentIndex = submenuLinks.indexOf(focusedElement);
+      
+      // Se il focus è su un elemento che non è nei link (es. pulsante Back) o non è trovato
+      if (currentIndex === -1) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          submenuLinks[0]?.focus(); // Vai al primo link (Back)
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          submenuLinks[submenuLinks.length - 1]?.focus(); // Vai all'ultimo link
+        }
+      } else {
+        // Navigazione normale tra i link del submenu
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextIndex = (currentIndex + 1) % submenuLinks.length;
+          submenuLinks[nextIndex]?.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prevIndex = currentIndex === 0 ? submenuLinks.length - 1 : currentIndex - 1;
+          submenuLinks[prevIndex]?.focus();
+        }
       }
     }
   });

@@ -3,17 +3,18 @@
 @use "sass:math";
 @use "sass:meta";
 
-$asset-path: "~@images/" !default; // Path per le immagini
+// Images path
+$asset-path: "~@images/" !default; 
 
-// Funzione per calcolare i valori da px a rem
+// Calculator from px to rem
 @function rem-calc($size) {
     @return #{
         math.div($size, $font-base)
     }rem;
 }
 
-// Definizione dei Fonts
-$font-base: 16; // Base di riferimento per la conversione px -> rem
+// Fonts
+$font-base: 16; // Base font size in pixels
 $font-sans: "Roboto", sans-serif;
 
 $font-weights: (
@@ -23,7 +24,7 @@ $font-weights: (
     regular: 400
 );
 
-// Font sizes - Scale tipografica
+// Font sizes
 $font-sizes: (
     // Headings
     h1-mobile: rem-calc(48),
@@ -94,17 +95,7 @@ $radius: (
     circle: 50%
 ) !default;
 
-// Mappa dei breakpoint per riferimenti dinamici
-// $breakpoints: (
-//     xs: 360px,
-//     sm: 768px,
-//     md: 1024px,
-//     lg: 1280px,
-//     xl: 1440px,
-//     xxl: 1600px
-// ) !default;
-
-// Mappa dei breakpoint per riferimenti dinamici
+// Breakpoint maps
 $breakpoints: (
     xs: 576px,
     sm: 768px,
@@ -114,7 +105,7 @@ $breakpoints: (
     xxl: 1600px
 ) !default;
 
-// Container max-widths per sistema responsive
+// Container max-widths
 $container-max-widths: (
     xs: 540px,    // >= 768px
     sm: 720px,    // >= 992px  
@@ -126,13 +117,13 @@ $container-max-widths: (
 // Primitive colors
 $yellow-500:   #E8B931 !default;
 $yellow-600:   #C49A1A !default;
-$yellow-700:   #A67C00 !default; // Even darker for better contrast
+$yellow-700:   #A67C00 !default;
 $yellow-500-alpha: rgba(232, 185, 49, 0.95) !default;
 $red-700:      #B3261E !default;
 $gray-100:     #F5F5F5 !default;
 $gray-200:     #A9A9A9 !default;
 $black:        #000000 !default;
-$black-alpha: rgba(0, 0, 0, 0.3) !default;
+$black-alpha:  rgba(0, 0, 0, 0.3) !default;
 $white:        #ffffff !default;
 $transparent:  transparent !default;
 
@@ -140,14 +131,11 @@ $transparent:  transparent !default;
 $color-primary:         $yellow-500 !default;
 $color-primary-hover:   $black !default;
 $color-primary-alpha:   $yellow-500-alpha !default;
-
 $color-secondary:       $red-700 !default;
-
 $color-black:           $black !default;
 $color-black-alpha:     $black-alpha !default;
 $color-white:           $white !default;
 $color-transparent:     $transparent !default;
-
 $color-surface:         $gray-100 !default;
 $color-subtle:          $gray-200 !default;
 
@@ -156,6 +144,7 @@ $colors: (
     "primary-hover":   $color-primary-hover,
     "primary-alpha":   $color-primary-alpha,
     "secondary":       $color-secondary,
+    "tertiary":        $color-secondary,
     "surface":         $color-surface,
     "subtle":          $color-subtle,
     "black":           $color-black,

@@ -2,10 +2,6 @@
 @use "@styles/variables" as *;
 @use "@styles/mixins" as *;
 
-/* =============================================
-   HEADER BASE STYLES - MOBILE FIRST
-   ============================================= */
-
 .header {
     position: fixed;
     width: 100%;
@@ -17,9 +13,7 @@
     z-index: 1000;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
-    // Mobile: header rimane sempre alla stessa altezza
     @include respond-to(sm) {
-        // Desktop: aggiungi transizione per altezza
         transition: background-color 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
     }
 
@@ -56,7 +50,7 @@
                 top: rem-calc(60);
 
                 &.is-open::after {
-                    top: rem-calc(60) !important;
+                    top: rem-calc(60);
                     background-color: var(--color-white);
                 }
             }
@@ -68,12 +62,10 @@
         align-items: center;
         justify-content: space-between;
         height: 100%;
-        // padding: 0 rem-calc(24);
     }
 
     &__logo {
         height: rem-calc(64);
-        z-index: 1000;
         
         img {
             width: rem-calc(64);
@@ -91,7 +83,9 @@
     }
 
     &__burger {
-        display: flex; // Mobile: sempre visibile
+        @include focus-states();
+        
+        display: flex;
         flex-direction: column;
         justify-content: space-around;
         width: rem-calc(32);
@@ -134,16 +128,22 @@
         background-color: var(--color-white);
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 
+        .header__container {
+            justify-content: end;
+        }
+
         .header__burger span {
             background-color: var(--color-black);
+        }
+
+        // Nascondi il logo del header quando il menu è aperto
+        .header__logo {
+            display: none;
         }
     }
 }
 
-/* =============================================
-   NAVIGATION - MOBILE FIRST
-   ============================================= */
-
+// NAVIGATION - MOBILE FIRST
 .main-nav {
     // Mobile: overlay container nascosto di default
     display: none;
@@ -158,7 +158,9 @@
 
     &.is-open {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
     }
 
     // Desktop: ripristina comportamento normale
@@ -171,12 +173,45 @@
         z-index: auto;
     }
 
+    &__header {
+        // Mobile: header con logo statico
+        position: fixed;
+        top: 0;
+        height: rem-calc(100);
+        width: 100%;
+        max-width: rem-calc(540);
+        padding: 0 rem-calc(28);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        // Desktop: nascondi header del menu
+        @include respond-to(sm) {
+            display: none;
+        }
+    }
+
+    &__logo {
+        // Mobile: logo statico nel menu
+        height: rem-calc(64);
+        
+        img {
+            width: rem-calc(64);
+            height: auto;
+        }
+
+        // Desktop: non visibile (nascosto dal parent)
+        @include respond-to(sm) {
+            display: none;
+        }
+    }
+
     &__menu {
         // Mobile: contenitore interno scrollabile
         position: relative;
         width: 100%;
         max-width: rem-calc(540);
-        height: calc(100vh - rem-calc(200)); // Lascia spazio per header e CTA
+        height: calc(100vh - rem-calc(280)); // Lascia spazio per header del menu e CTA
         background: transparent;
         display: flex;
         flex-direction: column;
@@ -218,6 +253,7 @@
     }
 
     &__link {
+        @include focus-states();
         // Mobile: link grandi
         display: flex;
         align-items: center;
@@ -235,6 +271,11 @@
             color: var(--color-primary);
         }
 
+        &--active {
+            color: var(--color-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
         // Desktop: link più piccoli, bianchi
         @include respond-to(sm) {
             width: auto;
@@ -242,6 +283,10 @@
             color: var(--color-white);
             font-size: var(--font-size-menu);
             justify-content: flex-start;
+
+            &:hover {
+                color: var(--color-primary);
+            }
         }
     }
 
@@ -400,6 +445,8 @@
     }
 
     &__submenu-link {
+        @include focus-states();
+        
         // Mobile: link grandi, stesso stile del menu principale
         display: block;
         width: 100%;
@@ -450,10 +497,8 @@
     }
 }
 
-/* =============================================
-   CTA BUTTON STYLES
-   ============================================= */
 
+// CTA BUTTON STYLES
 .header__cta {
     // Mobile: nascondi CTA nel header di default
     display: none;
@@ -487,10 +532,75 @@
     }
 }
 
-/* =============================================
-   UTILITY CLASSES
-   ============================================= */
 
+// UTILITY CLASSES
 .no-scroll {
     overflow: hidden;
+}
+
+
+// NAVIGATION ICONS
+.nav-icon {
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+// Icone specifiche per la navigazione del menu
+.main-nav__arrow {
+    // Mobile: freccia ruotata verso destra, NESSUNA transizione
+    transform: rotate(-90deg);
+    transition: none; // Nessuna animazione su mobile
+    
+    // Desktop: freccia verso il basso, CON transizione
+    @include respond-to(sm) {
+        margin-left: rem-calc(8);
+        transform: none;
+        transition: transform 0.3s ease; // Animazione solo su desktop
+    }
+    
+    // Rimuovi l'effetto scale al hover ereditato da .nav-icon
+    &:hover {
+        transform: rotate(-90deg); // Mobile: mantieni sempre la rotazione fissa
+        
+        @include respond-to(sm) {
+            transform: none; // Desktop: mantieni la trasformazione base
+        }
+        
+        // Se è in stato rotated, mantieni quella trasformazione
+        &.is-rotated {
+            transform: rotate(-90deg); // Mobile: sempre fissa
+            
+            @include respond-to(sm) {
+                transform: rotate(180deg); // Desktop: mantieni la rotazione
+            }
+        }
+    }
+    
+    &.is-rotated {
+        // Mobile: mantieni sempre la stessa rotazione (nessun cambio)
+        transform: rotate(-90deg);
+        
+        // Desktop: ruota la freccia verso l'alto
+        @include respond-to(sm) {
+            transform: rotate(180deg);
+        }
+    }
+    
+    &--back {
+        // Sovrascrive dimensioni e animazioni per la freccia del back
+        transform: none;
+        transition: color 0.3s ease, opacity 0.3s ease;
+        
+        @include respond-to(sm) {
+            transform: none;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+        
+        // Effetto hover per la freccia del back
+        &:hover {
+            opacity: 0.7;
+            color: var(--color-primary);
+        }
+    }
 }

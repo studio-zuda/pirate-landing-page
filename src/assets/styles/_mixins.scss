@@ -4,8 +4,26 @@
 @use "sass:meta";
 @use '@/assets/styles/variables' as *;
 
-// Mixin per breakpoint
+// Focus states mixin for consistent accessibility across interactive elements
+@mixin focus-states() {
+    &:focus {
+        outline-style: solid;
+        outline-width: rem-calc(2);
+        outline-color: var(--color-transparent);
+    }
 
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: var(--link-focus-outline);
+        outline-offset: var(--link-focus-outline-offset);
+    }
+}
+
+
+// Mixin per breakpoint
 @mixin respond-to($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
     $value: map.get($breakpoints, $breakpoint);
@@ -18,7 +36,6 @@
 }
 
 // Spacer
-
 @mixin spacer() {
   @each $key, $value in $spacers {
     .m-#{$key}   { margin: #{$value}; }
@@ -156,9 +173,6 @@ Puoi adattare i valori di clamp() (ad esempio, modificare il valore di 2vw o il 
   @each $name, $value in $align-options {
     .items-#{$name} { align-items: $value; }
   }
-
-  // Le classi gap sono già generate da gap-utilities
-  // Le classi responsive sono già generate da gap-utilities
 }
 
 @include flex();
@@ -208,3 +222,4 @@ Puoi adattare i valori di clamp() (ad esempio, modificare il valore di 2vw o il 
 }
 
 @include grid();
+

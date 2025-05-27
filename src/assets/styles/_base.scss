@@ -7,10 +7,13 @@
 // BASE STYLES
 // ============================================================================
 
-// ============================================================================
-// BODY & LAYOUT
-// ============================================================================
+// Default anchor elements
+a {
+    @include focus-states();
+    outline: inherit;
+}
 
+// BODY & LAYOUT
 body {
     position: relative;
     font-family: $font-sans;
@@ -22,17 +25,9 @@ body {
 .container {
     padding-left: rem-calc(28);
     padding-right: rem-calc(28);
-
-    @include respond-to(md) {
-        // padding-left: inherit;
-        // padding-right: inherit;
-    }
 }
 
-// ============================================================================
 // ACCESSIBILITY
-// ============================================================================
-
 .skip-container {
     position: relative;
     z-index: 9999;
@@ -65,19 +60,10 @@ body {
     }
 }
 
-// ============================================================================
-// ICONS
-// ============================================================================
-
-.icon {
-    color: var(--icon-color);
-}
-
-// ============================================================================
 // LINKS
-// ============================================================================
-
 .link {
+    @include focus-states();
+    
     color: var(--link-color);
     text-decoration: underline;
     text-underline-offset: rem-calc(4);
@@ -101,27 +87,12 @@ body {
     &:visited {
         color: var(--link-visited);
     }
-
-    &:focus {
-        outline-style: solid;
-        outline-width: rem-calc(2);
-        outline-color: var(--color-transparent);
-    }
-
-    &:focus:not(:focus-visible) {
-        outline: none;
-    }
-
-    &:focus-visible {
-        outline: var(--link-focus-outline);
-    }
 }
 
-// ============================================================================
 // BUTTONS
-// ============================================================================
-
-.btn {
+.button {
+    @include focus-states();
+    
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -136,37 +107,21 @@ body {
     padding: rem-calc(8) rem-calc(16);
     border-radius: var(--radius-xs);
 
-    &:focus {
-        outline-style: solid;
-        outline-width: rem-calc(2);
-        outline-color: var(--color-transparent);
-    }
-
-    &:focus:not(:focus-visible) {
-        outline: none;
-    }
-
-    &:focus-visible {
-        outline: var(--link-focus-outline);
-        outline-offset: var(--link-focus-outline-offset);
-    }
-
-    // Primary Button
     &--primary {
-        background-color: var(--btn-primary-bg);
-        color: var(--btn-primary-label);
-        border: 1px solid var(--btn-primary-border);
+        background-color: var(--button-primary-bg);
+        color: var(--button-primary-label);
+        border: 1px solid var(--button-primary-border);
 
         &:hover {
-            background-color: var(--btn-primary-hover);
+            background-color: var(--button-primary-hover);
             color: var(--color-white);
             border-color: var(--color-white);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         &:active {
-            background-color: var(--btn-primary-active);
-            color: var(--btn-primary-label);
+            background-color: var(--button-primary-active);
+            color: var(--button-primary-label);
             transform: translateY(0);
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         }
@@ -177,6 +132,54 @@ body {
             color: var(--input-disabled-text);
             cursor: not-allowed;
             opacity: 0.7;
+        }
+    }
+}
+
+// ============================================================================
+// BUTTON ICONS
+// ============================================================================
+
+// Icons in buttons
+.button-icon {
+    margin-right: rem-calc(8);
+    transition: transform 0.2s ease;
+    
+    // Position on the right of text
+    &--right {
+        margin-right: 0;
+        margin-left: rem-calc(8);
+    }
+    
+    // Dimensioni per pulsanti piccoli
+    .button--small & {
+        margin-right: rem-calc(6);
+        
+        &.button-icon--right {
+            margin-right: 0;
+            margin-left: rem-calc(6);
+        }
+    }
+    
+    // Dimensioni per pulsanti grandi
+    .button--large & {
+        margin-right: rem-calc(10);
+        
+        &.button-icon--right {
+            margin-right: 0;
+            margin-left: rem-calc(10);
+        }
+    }
+    
+    // Hover effects
+    .button:hover & {
+        &.button-icon--right {
+            transform: translateX(rem-calc(2));
+        }
+        
+        // Make secondary color icons white on button hover
+        &.icon-color-secondary {
+            color: var(--color-white);
         }
     }
 }

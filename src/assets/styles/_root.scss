@@ -41,11 +41,11 @@
     --link-focus-outline-offset: #{rem-calc(4)};
 
     // Button primary
-    --btn-primary-bg: var(--color-primary);
-    --btn-primary-hover: var(--color-primary-hover);
-    --btn-primary-active: var(--color-primary);
-    --btn-primary-label: var(--color-black);
-    --btn-primary-border: var(--color-primary);
+    --button-primary-bg: var(--color-primary);
+    --button-primary-hover: var(--color-primary-hover);
+    --button-primary-active: var(--color-primary);
+    --button-primary-label: var(--color-black);
+    --button-primary-border: var(--color-primary);
 
     // Card
     --card-border: var(--color-gray-900);
@@ -55,6 +55,13 @@
         --radius-#{$name}: #{$value};
     }
 
-
+    // Spacers (sistema di spaziature)
+    @each $name, $value in $spacers {
+        --space-#{$name}: #{$value};
+    }
     
+    // Gap values per grid/flex
+    @each $name, $value in $gap-values {
+        --gap-#{$name}: #{$value};
+    }
 }
