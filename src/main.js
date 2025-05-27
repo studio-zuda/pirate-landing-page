@@ -4,7 +4,7 @@ import logo from '@images/logo.svg';
 import parrot from '@images/parrot.webp';
 import galleon from '@images/galleon.webp';
 import galleonSwiper from '@images/swiper/galleon-swiper.webp';
-import { iconSVG, iconFiles, createIcon, createIconImg, createContextIcon, createSocialIcon } from '@/components/icons.js';
+import { createIcon } from '@/components/icons.js';
 import { initMenu } from '@/components/menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
