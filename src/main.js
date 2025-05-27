@@ -19,7 +19,7 @@ document.querySelector('#app').innerHTML = `
         </div>
         <header class="header" role="banner">
             <div class="container header__container">
-                <a class="header__logo" href="#" aria-label="Pirate Homepage">
+                <a class="header__logo" href="#" aria-label="Pirate go to Homepage">
                     <img class="header__logo-image" src="${logo}" alt="" />
                 </a>
 
@@ -37,7 +37,7 @@ document.querySelector('#app').innerHTML = `
                <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Main navigation">
                     <div class="main-nav__header">
                         <div class="main-nav__logo">
-                            <img src="${logo}" alt="Pirate" />
+                            <img src="${logo}" alt="" />
                         </div>
                     </div>
                     <ul class="main-nav__menu">
